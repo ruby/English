@@ -1,8 +1,6 @@
-require_relative 'lib/English/version'
-
 Gem::Specification.new do |spec|
   spec.name          = "English"
-  spec.version       = English::VERSION
+  spec.version       = "0.1.0"
   spec.authors       = ["Hiroshi SHIBATA"]
   spec.email         = ["hsbt@ruby-lang.org"]
 
