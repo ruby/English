@@ -1,8 +1,8 @@
 # English
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/English`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Include the English library file in a Ruby script, and you can
+reference the global variables such as <tt>$_</tt> using less
+cryptic names, listed below.
 
 ## Installation
 
@@ -22,7 +22,23 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Without 'English':
+
+```ruby
+$\ = ' -- '
+"waterbuffalo" =~ /buff/
+print $', $$, "\n"
+```
+
+With English:
+
+```ruby
+require "English"
+
+$OUTPUT_FIELD_SEPARATOR = ' -- '
+"waterbuffalo" =~ /buff/
+print $POSTMATCH, $PID, "\n"
+```
 
 ## Development
 
@@ -32,5 +48,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/hsbt/English.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/ruby/English.
