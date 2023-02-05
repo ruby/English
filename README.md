@@ -1,7 +1,7 @@
 # English
 
 Include the English library file in a Ruby script, and you can
-reference the global variables such as <tt>$_</tt> using less
+reference the global variables such as <code>$_</code> using less
 cryptic names, listed below.
 
 ## Installation
