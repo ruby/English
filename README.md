@@ -40,6 +40,31 @@ $OUTPUT_FIELD_SEPARATOR = ' -- '
 print $POSTMATCH, $PID, "\n"
 ```
 
+The available variables are:
+
+| Alias Name                     |Original Name|
+|--------------------------------| ----------- |
+| $ERROR_INFO                    | $!
+| $ERROR_POSITION                | $@
+| $FS, $FIELD_SEPARATOR          | $;
+| $OFS, $OUTPUT_FIELD_SEPARATOR  | $,
+| $RS, $INPUT_RECORD_SEPARATOR   | $/
+| $ORS, $OUTPUT_RECORD_SEPARATOR | $\
+| $NR, $INPUT_LINE_NUMBER        | $.
+| $LAST_READ_LINE                | $_
+| $DEFAULT_OUTPUT                | $>
+| $DEFAULT_INPUT                 | $<
+| $PID, $PROCESS_ID              | $$
+| $CHILD_STATUS                  | $?
+| $LAST_MATCH_INFO               | $~
+| $IGNORECASE                    | $=
+| $ARGV                          | $*
+| $MATCH                         | $&
+| $PREMATCH                      | $`
+| $POSTMATCH                     | $'
+| $LAST_PAREN_MATCH              | $+
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
