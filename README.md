@@ -43,7 +43,7 @@ print $POSTMATCH, $PID, "\n"
 The aliases are defined in [English.rb](lib/English.rb), and are as follows:
 
 | Alias                    | Built-In |
-| -----                    | -------- |
+| ------------------------ | :------: |
 | $ARGV                    |    $*    |
 | $CHILD_STATUS            |    $?    |
 | $DEFAULT_INPUT           |    $<    |
@@ -69,6 +69,7 @@ The aliases are defined in [English.rb](lib/English.rb), and are as follows:
 | $PREMATCH                |    $`    |
 | $PROCESS_ID              |    $$    |
 | $RS                      |    $/    |
+
 
 ## Development
 
