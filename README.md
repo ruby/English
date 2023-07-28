@@ -40,7 +40,7 @@ $OUTPUT_FIELD_SEPARATOR = ' -- '
 print $POSTMATCH, $PID, "\n"
 ```
 
-The available variables are:
+The aliases are defined in [English.rb](lib/English.rb), and are as follows:
 
 | Alias                    | Built-In |
 | -----                    | -------- |
