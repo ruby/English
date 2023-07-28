@@ -42,27 +42,33 @@ print $POSTMATCH, $PID, "\n"
 
 The available variables are:
 
-| Alias Name                     | Original Name
-|--------------------------------|--------------
-| $ERROR_INFO                    | $!             
-| $ERROR_POSITION                | $@             
-| $FS, $FIELD_SEPARATOR          | $;             
-| $OFS, $OUTPUT_FIELD_SEPARATOR  | $,             
-| $RS, $INPUT_RECORD_SEPARATOR   | $/             
-| $ORS, $OUTPUT_RECORD_SEPARATOR | $\             
-| $NR, $INPUT_LINE_NUMBER        | $.             
-| $LAST_READ_LINE                | $_             
-| $DEFAULT_OUTPUT                | $>             
-| $DEFAULT_INPUT                 | $<             
-| $PID, $PROCESS_ID              | $$             
-| $CHILD_STATUS                  | $?             
-| $LAST_MATCH_INFO               | $~             
-| $IGNORECASE                    | $=             
-| $ARGV                          | $*             
-| $MATCH                         | $&             
-| $PREMATCH                      | $`             
-| $POSTMATCH                     | $'             
-| $LAST_PAREN_MATCH              | $+             
+| Alias                    | Built-In |
+| -----                    | -------- |
+| $ARGV                    |    $*    |
+| $CHILD_STATUS            |    $?    |
+| $DEFAULT_INPUT           |    $<    |
+| $DEFAULT_OUTPUT          |    $>    |
+| $ERROR_INFO              |    $!    |
+| $ERROR_POSITION          |    $@    |
+| $FIELD_SEPARATOR         |    $;    |
+| $FS                      |    $;    |
+| $IGNORECASE              |    $=    |
+| $INPUT_LINE_NUMBER       |    $.    |
+| $INPUT_RECORD_SEPARATOR  |    $/    |
+| $LAST_MATCH_INFO         |    $~    |
+| $LAST_PAREN_MATCH        |    $+    |
+| $LAST_READ_LINE          |    $_    |
+| $MATCH                   |    $&    |
+| $NR                      |    $.    |
+| $OFS                     |    $,    |
+| $ORS                     |    $\    |
+| $OUTPUT_FIELD_SEPARATOR  |    $,    |
+| $OUTPUT_RECORD_SEPARATOR |    $\    |
+| $PID                     |    $$    |
+| $POSTMATCH               |    $'    |
+| $PREMATCH                |    $`    |
+| $PROCESS_ID              |    $$    |
+| $RS                      |    $/    |
 
 ## Development
 
