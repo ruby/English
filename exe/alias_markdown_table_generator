@@ -32,7 +32,7 @@ class AliasMarkdownTableGenerator
     end
 
     # Returns a string containing a markdown table of the aliases, with headings "Alias" and "Built-In".
-    def generate_markdown_table_string
+    def generate
       aliases = get_aliases
 
       col1_label = 'Alias'
@@ -60,7 +60,7 @@ class AliasMarkdownTableGenerator
 end
 
 if __FILE__ == $0
-  puts AliasMarkdownTableGenerator.generate_markdown_table_string
+  puts AliasMarkdownTableGenerator.generate
 end
 
 =begin
