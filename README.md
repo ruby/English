@@ -9,7 +9,7 @@ cryptic names, listed below.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'English'
+gem 'english'
 ```
 
 And then execute:
@@ -18,7 +18,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install English
+    $ gem install english
 
 ## Usage
 
