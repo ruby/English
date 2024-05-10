@@ -52,7 +52,6 @@ The aliases are defined in [English.rb](lib/English.rb), and are as follows:
 | $ERROR_POSITION          |    $@    |
 | $FIELD_SEPARATOR         |    $;    |
 | $FS                      |    $;    |
-| $IGNORECASE              |    $=    |
 | $INPUT_LINE_NUMBER       |    $.    |
 | $INPUT_RECORD_SEPARATOR  |    $/    |
 | $LAST_MATCH_INFO         |    $~    |
