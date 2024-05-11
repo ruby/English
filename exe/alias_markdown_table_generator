@@ -11,56 +11,55 @@
 
 require 'stringio'
 
-class AliasMarkdownTableGenerator
-  class << self
-    ALIAS_SOURCE_FILESPEC = File.absolute_path(File.join(File.basename(__FILE__), '../lib/English.rb'))
+class FileParser
+  ALIAS_SOURCE_FILESPEC = File.absolute_path(File.join(File.basename(__FILE__), '../lib/English.rb'))
 
-  # Get the lines from the file that contain aliases in the form
-    def get_alias_lines_from_file
-      File.readlines(ALIAS_SOURCE_FILESPEC).select { |line| line.match(/^alias/) }
+  def self.parse(filespec=ALIAS_SOURCE_FILESPEC)
+    lines = File.readlines(filespec) \
+      .map(&:strip) \
+      .reject { |line| line.start_with?('#') } \
+      .select { |line| line.match(/^alias/) }
+    tuples = lines.each_with_object([]) do |line, tuples|
+      tuples << line.split[1..2]
+    end
+    tuples.sort
+  end
+end
+
+
+
+class AliasToBuiltinMarkdownTableGenerator
+  # Returns a string containing a markdown table of the aliases, with headings "Alias" and "Built-In".
+  def self.generate(alias_tuples)
+    col1_label = 'Alias'
+    col2_label = 'Built-In'
+
+    # a = alias, b = builtin
+    col1_length = [alias_tuples.map { |(a, _b)| a.length }.max, col1_label.length].max
+    col2_length = [alias_tuples.map { |(_a, b)| b.length }.max, col2_label.length].max
+
+    col1_heading_line = '-' * col1_length
+    col2_heading_line = ":#{'-' * (col2_length - 2)}:"
+
+    format_line = ->(item1, item2) do
+      "| #{item1.ljust(col1_length)} | #{item2.center(col2_length)} |"
     end
 
-    # Returns a 2-element array containing the alias and the variable name.
-    def get_alias_tuple_from_line(line)
-      line.split[1..2]
+    markdown_string = StringIO.new
+    markdown_string << format_line.call(col1_label, col2_label) << "\n"
+    markdown_string << format_line.call(col1_heading_line, col2_heading_line) << "\n"
+    alias_tuples.each do |(alias_, variable_)|
+      markdown_string << format_line.call(alias_, variable_) << "\n"
     end
-
-    # Get aliases as an array of arrays sorted by alias, each containing the alias and the variable name,
-    # e.g. [ ['$ARGV', '$*'], ... ]
-    def get_aliases
-      get_alias_lines_from_file.map { |line| get_alias_tuple_from_line(line) }.sort
-    end
-
-    # Returns a string containing a markdown table of the aliases, with headings "Alias" and "Built-In".
-    def generate
-      aliases = get_aliases
-
-      col1_label = 'Alias'
-      col2_label = 'Built-In'
-
-      col1_length = aliases.map { |a| a[0].length }.max
-      col2_length = [aliases.map { |a| a[1].length }.max, col2_label.length].max
-
-      col1_heading_line = '-' * col1_length
-      col2_heading_line = ":#{'-' * (col2_length - 2)}:"
-
-      format_line = ->(item1, item2) do
-        "| #{item1.ljust(col1_length)} | #{item2.center(col2_length)} |"
-      end
-
-      markdown_string = StringIO.new
-      markdown_string << format_line.call(col1_label, col2_label) << "\n"
-      markdown_string << format_line.call(col1_heading_line, col2_heading_line) << "\n"
-      aliases.each do |(alias_, variable_)|
-        markdown_string << format_line.call(alias_, variable_) << "\n"
-      end
-      markdown_string.string
-    end
+    markdown_string.string
   end
 end
 
 if __FILE__ == $0
-  puts AliasMarkdownTableGenerator.generate
+  alias_tuples = FileParser.parse
+  puts AliasToBuiltinMarkdownTableGenerator.generate(alias_tuples)
+
+
 end
 
 =begin
