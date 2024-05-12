@@ -45,7 +45,6 @@ class MarkdownTableGenerator
     # Sort by the first column, whatever that is.
     tuples = alias_to_builtin ? tuples_orig.map(&:reverse).sort.map(&:reverse) : tuples_orig
 
-    # a = alias, b = builtin
     tuples = tuples.map(&:reverse) if alias_to_builtin
     col1_length = [tuples.map { |(a, _b)| a.length }.max, col1_label.length].max
     col2_length = [tuples.map { |(_a, b)| b.length }.max, col2_label.length].max
