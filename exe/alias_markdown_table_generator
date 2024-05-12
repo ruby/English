@@ -72,8 +72,10 @@ end
 
 if __FILE__ == $0
   alias_tuples = FileParser.parse
+  puts "### Builtin to Alias Table\n\n"
   puts MarkdownTableGenerator.generate(alias_tuples, true)
-  puts "\n\n\n"
+  puts "\n\n"
+  puts "### Alias to Builtin Table\n\n"
   puts MarkdownTableGenerator.generate(alias_tuples, false)
 end
 
