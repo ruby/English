@@ -42,7 +42,7 @@ print $POSTMATCH, $PID, "\n"
 
 The aliases are defined in [English.rb](lib/English.rb), and are as follows, first alias to builtin, then builtin to alias:
 
-## Builtin to Alias Table
+### Builtin to Alias Table
 
 | Builtin | Alias                    |
 | :-------: | ----------------------   |
@@ -71,7 +71,8 @@ The aliases are defined in [English.rb](lib/English.rb), and are as follows, fir
 |   $`    | $PREMATCH                |
 |   $~    | $LAST_MATCH_INFO         |
 
-## Alias to Builtin Table
+
+### Alias to Builtin Table
 
 | Alias                    | Builtin |
 | ------------------------ | :-----: |
@@ -99,8 +100,6 @@ The aliases are defined in [English.rb](lib/English.rb), and are as follows, fir
 | $PREMATCH                |   $`    |
 | $PROCESS_ID              |   $$    |
 | $RS                      |   $/    |
-
-
 
 
 ## Development
