@@ -24,8 +24,8 @@ require 'stringio'
 class FileParser
   ALIAS_SOURCE_FILESPEC = File.absolute_path(File.join(File.basename(__FILE__), '../lib/English.rb'))
 
-  def self.parse(filespec=ALIAS_SOURCE_FILESPEC)
-    lines = File.readlines(filespec) \
+  def self.parse(code_text_lines=File.readlines(ALIAS_SOURCE_FILESPEC))
+    lines = code_text_lines \
       .map(&:strip) \
       .reject { |line| line.start_with?('#') } \
       .select { |line| line.match(/^alias/) }
