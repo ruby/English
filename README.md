@@ -40,6 +40,68 @@ $OUTPUT_FIELD_SEPARATOR = ' -- '
 print $POSTMATCH, $PID, "\n"
 ```
 
+The aliases are defined in [English.rb](lib/English.rb), and are as follows, first alias to builtin, then builtin to alias:
+
+### Builtin to Alias Table
+
+| Builtin | Alias                    |
+| :-------: | ----------------------   |
+|   $!    | $ERROR_INFO              |
+|   $$    | $PID                     |
+|   $$    | $PROCESS_ID              |
+|   $&    | $MATCH                   |
+|   $'    | $POSTMATCH               |
+|   $*    | $ARGV                    |
+|   $+    | $LAST_PAREN_MATCH        |
+|   $,    | $OFS                     |
+|   $,    | $OUTPUT_FIELD_SEPARATOR  |
+|   $.    | $INPUT_LINE_NUMBER       |
+|   $.    | $NR                      |
+|   $/    | $INPUT_RECORD_SEPARATOR  |
+|   $/    | $RS                      |
+|   $;    | $FIELD_SEPARATOR         |
+|   $;    | $FS                      |
+|   $<    | $DEFAULT_INPUT           |
+|   $>    | $DEFAULT_OUTPUT          |
+|   $?    | $CHILD_STATUS            |
+|   $@    | $ERROR_POSITION          |
+|   $\    | $ORS                     |
+|   $\    | $OUTPUT_RECORD_SEPARATOR |
+|   $_    | $LAST_READ_LINE          |
+|   $`    | $PREMATCH                |
+|   $~    | $LAST_MATCH_INFO         |
+
+
+### Alias to Builtin Table
+
+| Alias                    | Builtin |
+| ------------------------ | :-----: |
+| $ARGV                    |   $*    |
+| $CHILD_STATUS            |   $?    |
+| $DEFAULT_INPUT           |   $<    |
+| $DEFAULT_OUTPUT          |   $>    |
+| $ERROR_INFO              |   $!    |
+| $ERROR_POSITION          |   $@    |
+| $FIELD_SEPARATOR         |   $;    |
+| $FS                      |   $;    |
+| $INPUT_LINE_NUMBER       |   $.    |
+| $INPUT_RECORD_SEPARATOR  |   $/    |
+| $LAST_MATCH_INFO         |   $~    |
+| $LAST_PAREN_MATCH        |   $+    |
+| $LAST_READ_LINE          |   $_    |
+| $MATCH                   |   $&    |
+| $NR                      |   $.    |
+| $OFS                     |   $,    |
+| $ORS                     |   $\    |
+| $OUTPUT_FIELD_SEPARATOR  |   $,    |
+| $OUTPUT_RECORD_SEPARATOR |   $\    |
+| $PID                     |   $$    |
+| $POSTMATCH               |   $'    |
+| $PREMATCH                |   $`    |
+| $PROCESS_ID              |   $$    |
+| $RS                      |   $/    |
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

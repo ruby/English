@@ -1,0 +1,86 @@
+#!/usr/bin/env ruby
+
+# The output of this script can be inserted at the end of the "Usage" section of README.md.
+#
+# This script generates a markdown file containing all the English aliases in English.rb, in the forms:
+#
+# | Alias                    | Built-In |
+# | ------------------------ | :------: |
+# | $ARGV                    |    $*    |
+# | $CHILD_STATUS            |    $?    |
+#
+#  and:
+#
+# | Built-In | Alias                    |
+# | -------- | :----------------------: |
+# |    $*    | $ARGV                    |
+# |    $?    | $CHILD_STATUS            |
+#
+# Some of the formatting done here is not necessary, but is done to make the generated markdown more readable.
+
+require 'stringio'
+
+# Parses the English.rb file for aliases into an array of alias/builtin tuples.
+class FileParser
+  ALIAS_SOURCE_FILESPEC = File.absolute_path(File.join(File.basename(__FILE__), '../lib/English.rb'))
+
+  def self.parse(code_text_lines=File.readlines(ALIAS_SOURCE_FILESPEC))
+    lines = code_text_lines \
+      .map(&:strip) \
+      .reject { |line| line.start_with?('#') } \
+      .select { |line| line.match(/^alias/) }
+    tuples = lines.each_with_object([]) do |line, tuples|
+      tuples << line.split[1..2]
+    end
+    tuples.sort
+  end
+end
+
+
+class MarkdownTableGenerator
+  # Returns a string containing a markdown table of the aliases, with headings "Alias" and "Built-In".
+  # @param [Array] tuples array of alias/builtin tuples
+  # @param [Boolean] alias_to_builtin true if alias to builtin, false if builtin to alias
+  def self.generate(tuples_orig, alias_to_builtin=true)
+    col1_label, col2_label = alias_to_builtin ? ['Builtin', 'Alias'] : ['Alias', 'Builtin']
+
+    # Sort by the first column, whatever that is.
+    tuples = alias_to_builtin ? tuples_orig.map(&:reverse).sort.map(&:reverse) : tuples_orig
+
+    tuples = tuples.map(&:reverse) if alias_to_builtin
+    col1_length = [tuples.map { |(a, _b)| a.length }.max, col1_label.length].max
+    col2_length = [tuples.map { |(_a, b)| b.length }.max, col2_label.length].max
+
+    col1_heading_line = alias_to_builtin ? ":#{'-' * col1_length}:" : ('-' * col1_length)
+    col2_heading_line = alias_to_builtin ? '-' * (col2_length - 2) : ":#{'-' * (col2_length - 2)}:"
+
+    format_line = ->(item1, item2) do
+      if alias_to_builtin
+        "| #{item1.center(col1_length)} | #{item2.ljust(col2_length)} |"
+      else
+        "| #{item1.ljust(col1_length)} | #{item2.center(col2_length)} |"
+      end
+    end
+
+    markdown_string = StringIO.new
+    markdown_string << format_line.call(col1_label, col2_label) << "\n"
+    markdown_string << format_line.call(col1_heading_line, col2_heading_line) << "\n"
+    tuples.each do |(item1, item2)|
+      markdown_string << format_line.call(item1, item2) << "\n"
+    end
+    markdown_string.string
+  end
+end
+
+if __FILE__ == $0
+  alias_tuples = FileParser.parse
+  puts <<~OUTPUT
+    ### Builtin to Alias Table
+
+    #{MarkdownTableGenerator.generate(alias_tuples, true)}
+
+    ### Alias to Builtin Table
+
+    #{MarkdownTableGenerator.generate(alias_tuples, false)}
+  OUTPUT
+end
