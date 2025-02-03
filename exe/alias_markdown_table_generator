@@ -33,27 +33,32 @@ end
 class MarkdownTableGenerator
   # Returns a string containing a markdown table of the aliases, with headings "Alias" and "Built-In".
   # @param [Array] tuples array of alias/builtin tuples
-  # @param [Boolean] alias_to_builtin true if alias to builtin, false if builtin to alias
-  def self.generate(tuples_orig, alias_to_builtin=true)
-    col1_label, col2_label = alias_to_builtin ? ['Builtin', 'Alias'] : ['Alias', 'Builtin']
+  # @param [Boolean] builtin_to_alias true if builtin to alias, false if alias to builtin
+  def self.generate(tuples, builtin_to_alias=true)
 
-    # Sort by the first column, whatever that is.
-    tuples = alias_to_builtin ? tuples_orig.map(&:reverse).sort.map(&:reverse) : tuples_orig
-
-    tuples = tuples.map(&:reverse) if alias_to_builtin
+    col1_label, col2_label = 'Alias', 'Builtin'
     col1_length = [tuples.map { |(a, _b)| a.length }.max, col1_label.length].max
     col2_length = [tuples.map { |(_a, b)| b.length }.max, col2_label.length].max
 
-    col1_heading_line = alias_to_builtin ? ":#{'-' * col1_length}:" : ('-' * col1_length)
-    col2_heading_line = alias_to_builtin ? '-' * (col2_length - 2) : ":#{'-' * (col2_length - 2)}:"
+    col1_heading_line = ('-' * col1_length)
+    col2_heading_line = ":#{'-' * (col2_length - 2)}:"
 
-    format_line = ->(item1, item2) do
-      if alias_to_builtin
+    if builtin_to_alias
+      tuples = tuples.map(&:reverse)
+      col1_label, col2_label = col2_label, col1_label
+      col1_length, col2_length = col2_length, col1_length
+      col1_heading_line, col2_heading_line = col2_heading_line, col1_heading_line
+      format_line = ->(item1, item2) do
         "| #{item1.center(col1_length)} | #{item2.ljust(col2_length)} |"
-      else
+      end
+    else
+      format_line = ->(item1, item2) do
         "| #{item1.ljust(col1_length)} | #{item2.center(col2_length)} |"
       end
     end
+
+    # Sort by the first column, whatever that is.
+    tuples.sort!
 
     markdown_string = StringIO.new
     markdown_string << format_line.call(col1_label, col2_label) << "\n"
