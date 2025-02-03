@@ -45,7 +45,7 @@ The aliases are defined in [English.rb](lib/English.rb), and are as follows, fir
 ### Builtin to Alias Table
 
 | Builtin | Alias                    |
-| :-------: | ----------------------   |
+| :-----: | ------------------------ |
 |   $!    | $ERROR_INFO              |
 |   $$    | $PID                     |
 |   $$    | $PROCESS_ID              |
