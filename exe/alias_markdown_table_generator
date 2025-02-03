@@ -72,6 +72,14 @@ end
 
 if __FILE__ == $0
   alias_tuples = FileParser.parse
+  replace = !ARGV.empty?
+  if replace
+    ARGF.inplace_mode = "~"
+    ARGF.each do |line|
+      break if /^### Builtin to Alias Table/ =~ line
+      puts line
+    end
+  end
   puts <<~OUTPUT
     ### Builtin to Alias Table
 
@@ -81,4 +89,18 @@ if __FILE__ == $0
 
     #{MarkdownTableGenerator.generate(alias_tuples, false)}
   OUTPUT
+  if replace
+    puts
+    ARGF.each do |line|
+      if replace
+        case line
+        when /^##?\s/, /^### (?!Alias to Builtin Table)/
+          puts line
+          replace = false
+        end
+      else
+        puts line
+      end
+    end
+  end
 end
