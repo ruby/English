@@ -25,14 +25,7 @@ class FileParser
   ALIAS_SOURCE_FILESPEC = File.join(__dir__, '../lib/English.rb')
 
   def self.parse(code_text_lines=File.readlines(ALIAS_SOURCE_FILESPEC))
-    lines = code_text_lines \
-      .map(&:strip) \
-      .reject { |line| line.start_with?('#') } \
-      .select { |line| line.match(/^alias/) }
-    tuples = lines.each_with_object([]) do |line, tuples|
-      tuples << line.split[1..2]
-    end
-    tuples.sort
+    code_text_lines.grep(/^\s*alias\s+(\S+)\s+(\S+)/) {$~.captures}
   end
 end
 
