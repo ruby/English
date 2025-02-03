@@ -22,7 +22,7 @@ require 'stringio'
 
 # Parses the English.rb file for aliases into an array of alias/builtin tuples.
 class FileParser
-  ALIAS_SOURCE_FILESPEC = File.absolute_path(File.join(File.basename(__FILE__), '../lib/English.rb'))
+  ALIAS_SOURCE_FILESPEC = File.join(__dir__, '../lib/English.rb')
 
   def self.parse(code_text_lines=File.readlines(ALIAS_SOURCE_FILESPEC))
     lines = code_text_lines \
