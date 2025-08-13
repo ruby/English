@@ -30,7 +30,7 @@ $\ = ' -- '
 print $', $$, "\n"
 ```
 
-With English:
+With 'English':
 
 ```ruby
 require "English"
