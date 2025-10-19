@@ -6,15 +6,15 @@
 #
 # | Alias                    | Built-In |
 # | ------------------------ | :------: |
-# | $ARGV                    |    $*    |
-# | $CHILD_STATUS            |    $?    |
+# | `$ARGV`                  | `` $* `` |
+# | `$CHILD_STATUS`          | `` $? `` |
 #
 #  and:
 #
 # | Built-In | Alias                    |
-# | -------- | :----------------------: |
-# |    $*    | $ARGV                    |
-# |    $?    | $CHILD_STATUS            |
+# | :------: | ------------------------ |
+# | `` $* `` | `$ARGV`                  |
+# | `` $? `` | `$CHILD_STATUS`          |
 #
 # Some of the formatting done here is not necessary, but is done to make the generated markdown more readable.
 
@@ -25,7 +25,7 @@ class FileParser
   ALIAS_SOURCE_FILESPEC = File.join(__dir__, '../lib/English.rb')
 
   def self.parse(code_text_lines=File.readlines(ALIAS_SOURCE_FILESPEC))
-    code_text_lines.grep(/^\s*alias\s+(\S+)\s+(\S+)/) {$~.captures}
+    code_text_lines.grep(/^\s*alias\s+(\S+)\s+(\S+)/) {["`#$1`", "`` #$2 ``"]}
   end
 end
 
@@ -95,12 +95,12 @@ if __FILE__ == $0
       if replace
         case line
         when /^##?\s/, /^### (?!Alias to Builtin Table)/
-          puts line
           replace = false
+        else
+          next
         end
-      else
-        puts line
       end
+      puts line
     end
   end
 end
